@@ -4,7 +4,7 @@
 
 ---
 
-## ⚙️ Features
+## Features
 
 - Optimized for **low-dimensional, large-sample** datasets  
 - Simple API: `.fit()`, `.predict()`, `.coefficients()`
@@ -14,7 +14,7 @@
 
 ---
 
-## 📈 Benchmark (8 features, 5 million samples)
+## Benchmark (8 features, 5 million samples)
 
 | Model              | Fit Time |
 |-------------------|----------|
@@ -32,7 +32,7 @@ git clone https://github.com/yourusername/OptLinearRegress.git
 cd OptLinearRegress
 pip install -r requirements.txt
 python setup.py build_ext --inplace
-
+```
 
 ## 📫 Contact
 
