@@ -9,12 +9,14 @@ from libc.math cimport fabs
 from libc.stdlib cimport malloc, free
 from cython cimport cclass, cfunc
 
+# Transpose of matrix
 cdef void transpose_inplace(double* MAT, double* MAT_t, int rows, int cols) nogil:
     cdef int i, j
     for i in range(rows):
         for j in range(cols):
             MAT_t[j * rows + i] = MAT[i * cols + j]
 
+# Multiplication of two matrices
 cdef void matmul_c(double* A, double* B, double* R, int A_rows, int A_cols, int B_cols) nogil:
     cdef int i, j, k
     cdef double temp
@@ -27,6 +29,7 @@ cdef void matmul_c(double* A, double* B, double* R, int A_rows, int A_cols, int 
                 temp += A[i * A_cols + k] * B[k * B_cols + j]
             R[i * B_cols + j] = temp
 
+# Multiplication of a vector and a matrix
 cdef void matvec_c(double* M, double* v, double* r, int rows, int cols) nogil:
     cdef int i, j
     cdef double temp
@@ -36,6 +39,8 @@ cdef void matvec_c(double* M, double* v, double* r, int rows, int cols) nogil:
             temp += M[i * cols + j] * v[j]
         r[i] = temp
 
+# Inverse of a matrix - Gaussian Jordan Elimination Method
+# Limitations - Expensive for large matrices! O(n3)
 cdef int inverse(double* A, double* A_inv, int n) nogil:
     cdef int i, j, k, maxRow
     cdef double maxEl, tmp
@@ -138,7 +143,7 @@ cdef class LinearRegressor:
             transpose_inplace(X, X_t, n_samples, n_features)
             matmul_c(X_t, X, X_t_X, n_features, n_samples, n_features)
 
-            # Small ridge regularization to diagonal of X_t_X to inverse matrix
+            # Ridge regularization to diagonal of X_t_X
             for i in range(n_features):
                 X_t_X[i * n_features + i] += self.alpha
             
