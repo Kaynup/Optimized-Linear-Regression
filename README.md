@@ -18,10 +18,10 @@
 
 | Model              | Fit Time |
 |-------------------|----------|
-| OptLinearRegress  | ~150 ms  |
-| scikit-learn      | ~250 ms  |
+| OptLinearRegress  | ~1900 ms  |
+| scikit-learn      | ~2600 ms  |
 
-Approx. **100ms speedup** → ~**40% improvement**
+Approx. **100ms speedup** → ~**27% improvement**
 
 ---
 
