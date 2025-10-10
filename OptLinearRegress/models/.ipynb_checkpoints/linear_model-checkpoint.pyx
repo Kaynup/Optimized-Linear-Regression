@@ -1,3 +1,4 @@
+# OptLinearRegress/models/linear_model.pyx
 # cython: language_level=3
 # cython: boundscheck=False, wraparound=False, cdivision=True
 # distutils: language = c++
@@ -6,10 +7,6 @@ from libc.stdlib cimport malloc, free
 from OptLinearRegress.solvers.normal_equation cimport solve_normal_equation
 
 cdef class LinearRegressor:
-    cdef int n_features
-    cdef double* beta
-    cdef double alpha
-
     def __init__(self, double alpha=1e-8):
         self.n_features = 0
         self.beta = <double*>NULL

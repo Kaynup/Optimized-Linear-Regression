@@ -1,7 +1,14 @@
-# cython: boundscheck=False, wraparound=False
-cimport cython
-from OptLinearRegress.linalg.linalg cimport *
+# cython: language_level=3
+# cython: boundscheck=False, wraparound=False, cdivision=True
+# distutils: language = c++
 
+import numpy as np
+cimport numpy as np
+from libc.stdlib cimport malloc, free
+
+# -----------------------------
+# C-level functions
+# -----------------------------
 cdef void transpose_inplace(double* A, int n):
     cdef int i, j
     cdef double tmp
@@ -59,3 +66,45 @@ cdef int invert_matrix(double* A, int n):
                 A[k*n + j] -= A[k*n + i]*A[i*n + j]
     free(ipiv)
     return 0
+
+# -----------------------------
+# Python-callable wrappers
+# -----------------------------
+cpdef np.ndarray py_matmul(np.ndarray[double, ndim=1] A, np.ndarray[double, ndim=1] B, int M, int N, int K):
+    """
+    Matrix multiplication wrapper.
+    A: flattened M x N
+    B: flattened N x K
+    Returns M x K numpy array
+    """
+    cdef double* C_ptr
+    cdef np.ndarray[double, ndim=1] C = np.zeros(M*K, dtype=np.float64)
+    C_ptr = <double*> C.ctypes.data
+    matmul_c(&A[0], &B[0], C_ptr, M, N, K)
+    return C.reshape((M,K))
+
+cpdef np.ndarray py_matvec(np.ndarray[double, ndim=1] A, np.ndarray[double, ndim=1] x, int M, int N):
+    """
+    Matrix-vector multiplication wrapper.
+    A: flattened M x N
+    x: N
+    Returns vector of length M
+    """
+    cdef np.ndarray[double, ndim=1] y = np.zeros(M, dtype=np.float64)
+    matvec_c(&A[0], &x[0], &y[0], M, N)
+    return y
+
+cpdef np.ndarray py_transpose(np.ndarray[double, ndim=1] A, int n):
+    """
+    In-place transpose of n x n matrix (flattened).
+    Returns reshaped numpy array.
+    """
+    transpose_inplace(&A[0], n)
+    return A.reshape((n,n))
+
+cpdef int py_invert(np.ndarray[double, ndim=1] A, int n):
+    """
+    In-place inversion of n x n matrix (flattened).
+    Returns 0 on success, -1 if singular.
+    """
+    return invert_matrix(&A[0], n)
