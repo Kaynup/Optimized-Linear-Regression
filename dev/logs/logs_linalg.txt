@@ -1,0 +1,16 @@
+=== Matrix Multiply Test ===
+Size: 4x4
+Cython time: 6.02 µs | Python time: 8.22 µs | Speedup: 1.4x
+Max diff: 0.000e+00
+
+=== Matrix-Vector Test ===
+Size: 4
+Cython time: 1.69 µs | Python time: 2.87 µs | Speedup: 1.7x
+Max diff: 0.000e+00
+
+=== Transpose Test ===
+Size: 3x3
+Cython time: 1.16 µs | Max diff: 0.000e+00
+
+=== Inversion Test (2x2) ===
+Inversion success, Cython time: 1.42 µs | Max diff: 7.700e+00

@@ -1,5 +1,5 @@
 import numpy as np
-from OptLinearRegress.linalg import py_matmul, py_matvec, py_transpose, py_invert
+from .OptLinearRegress.linalg import py_matmul, py_matvec, py_transpose, py_invert
 
 def test_matmul():
     A = np.array([[1,2,3],[4,5,6]], dtype=np.float64).flatten()
