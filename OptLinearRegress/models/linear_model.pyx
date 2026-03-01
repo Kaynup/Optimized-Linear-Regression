@@ -4,13 +4,13 @@
 # distutils: language = c++
 
 from libc.stdlib cimport malloc, free
-from OptLinearRegress.solvers.normal_equation cimport solve_normal_equation
+from OptLinearRegress.solvers.normal_equation cimport c_solve_normal_equation
 
 cdef class LinearRegressor:
     def __init__(self, double alpha=1e-8):
         self.n_features = 0
         self.beta = <double*>NULL
-        self.alpha = alpha
+        self.alpha = alpha    # A small value for convergence
 
     def __dealloc__(self):
         if self.beta != <double*>NULL:
@@ -46,7 +46,7 @@ cdef class LinearRegressor:
                     X[i * n_features + j + 1] = X_py[i][j]
                 y[i] = y_py[i]
 
-            err = solve_normal_equation(X, y, n_samples, n_features, self.alpha, self.beta)
+            err = c_solve_normal_equation(X, y, n_samples, n_features, self.alpha, self.beta)
             if err == -1:
                 raise ValueError("Matrix not invertible")
             elif err == -2:

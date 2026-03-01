@@ -2,15 +2,13 @@
 # cython: boundscheck=False, wraparound=False, cdivision=True
 # distutils: language = c++
 
-import numpy as np
-cimport numpy as np
 from libc.stdlib cimport malloc, free
 from OptLinearRegress.linalg.linalg cimport matmul_c, transpose_inplace, invert_matrix
 
 # -----------------------------
 # C-level solver (fast)
 # -----------------------------
-cdef int _solve_normal_equation(double* X, double* y, int n_samples, int n_features, double alpha, double* beta):
+cdef int c_solve_normal_equation(double* X, double* y, int n_samples, int n_features, double alpha, double* beta):
     """
     Solves (X^T X + alpha*I) beta = X^T y
     Returns 0 on success, -1 if singular, -2 if allocation fails
@@ -58,18 +56,18 @@ cdef int _solve_normal_equation(double* X, double* y, int n_samples, int n_featu
 # -----------------------------
 # Python-callable wrapper
 # -----------------------------
-cpdef solve_normal_equation(np.ndarray[double, ndim=1] X_flat,
-                            np.ndarray[double, ndim=1] y,
+cpdef solve_normal_equation(double[:] X_flat,
+                            double[:] y,
                             int n_samples,
                             int n_features,
                             double alpha,
-                            np.ndarray[double, ndim=1] beta):
+                            double[:] beta):
     """
     Python wrapper for _solve_normal_equation.
-    Expects flattened X (1D numpy array) and y/beta as 1D numpy arrays.
+    Expects flattened X and y/beta as tracking memoryviews.
     """
-    cdef double* X_ptr = <double*> X_flat.ctypes.data
-    cdef double* y_ptr = <double*> y.ctypes.data
-    cdef double* beta_ptr = <double*> beta.ctypes.data
+    cdef double* X_ptr = &X_flat[0]
+    cdef double* y_ptr = &y[0]
+    cdef double* beta_ptr = &beta[0]
 
-    return _solve_normal_equation(X_ptr, y_ptr, n_samples, n_features, alpha, beta_ptr)
+    return c_solve_normal_equation(X_ptr, y_ptr, n_samples, n_features, alpha, beta_ptr)
