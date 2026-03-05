@@ -2,14 +2,14 @@
 
 A modular **Cython-based package for Linear Regression** built from scratch. It is designed to be installed on embedded systems, time-critical environments, and systems that require highly optimized and fast calculations without the overhead of heavy dependencies like NumPy.
 
-## 🚀 Features
+## >> Features
 - **High Performance:** Core logic implemented in Cython and C++ (C++17 standard) for maximum performance.
 - **Modularity:** Divided cleanly into `linalg`, `models`, `solvers`, and `utils`.
 - **Low Dependencies:** Only requires `Cython >= 3.0` to build the C extensions.
 - **Regularization:** Built-in support for Ridge Regression via the `alpha` hyperparameter.
 - **Comprehensive Metrics:** Includes mean squared error, mean absolute error, root mean squared error, r2 score, and explained variance.
 
-## 📦 Installation
+## --| Installation
 
 Requirements:
 - Python 3.8+
@@ -36,7 +36,7 @@ Requirements:
    python setup.py install
    ```
 
-## 💡 Quick Start Usage
+## [+] Quick Start Usage
 
 Here is a quick example of how to use the `LinearRegressor` and evaluate it using built-in metrics:
 
@@ -68,7 +68,7 @@ print(f"Mean Squared Error: {mse:.4f}")
 print(f"R² Score: {r2:.4f}")
 ```
 
-## 🧪 Testing
+## --| Testing
 
 To ensure everything is working correctly, you can run the test suite with `pytest`:
 ```bash
@@ -84,7 +84,7 @@ To clean up build artifacts:
 python setup.py clean --all
 ```
 
-## 📁 File Hierarchy
+## --| File Hierarchy
 
 ```text
 OptLinearRegress
@@ -95,8 +95,8 @@ OptLinearRegress
 └── utils/            # Data management, Cython memoryviews, and metrics
 ```
 
-## 🤝 Contributing
+## [*] Contributing
 See `CONTRIBUTING.md` for guidelines on how to contributing.
 
-## 📄 License
+## [>] License
 This project is licensed. See the `LICENSE` file for details.

@@ -1,4 +1,4 @@
-# 🤝 Contributing to OptLinearRegress
+# [*] Contributing to OptLinearRegress
 
 We welcome contributions to **OptLinearRegress**, especially from those interested in performance engineering, numerical methods, or Cython/C++ systems!
 
@@ -25,7 +25,7 @@ We welcome contributions to **OptLinearRegress**, especially from those interest
 
 ---
 
-## 🛠 Development Setup
+## [>] Development Setup
 
 ```bash
 git clone https://github.com/Kaynup/Optimized-Linear-Regression.git

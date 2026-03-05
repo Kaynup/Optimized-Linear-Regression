@@ -2676,7 +2676,7 @@ static int __pyx_pf_16OptLinearRegress_6models_12linear_model_15LinearRegressor_
  *     def __init__(self, double alpha=1e-8):
  *         self.n_features = 0             # <<<<<<<<<<<<<<
  *         self.beta = <double*>NULL
- *         self.alpha = alpha
+ *         self.alpha = alpha    # A small value for convergence
 */
   __pyx_v_self->n_features = 0;
 
@@ -2684,7 +2684,7 @@ static int __pyx_pf_16OptLinearRegress_6models_12linear_model_15LinearRegressor_
  *     def __init__(self, double alpha=1e-8):
  *         self.n_features = 0
  *         self.beta = <double*>NULL             # <<<<<<<<<<<<<<
- *         self.alpha = alpha
+ *         self.alpha = alpha    # A small value for convergence
  * 
 */
   __pyx_v_self->beta = ((double *)NULL);
@@ -2692,7 +2692,7 @@ static int __pyx_pf_16OptLinearRegress_6models_12linear_model_15LinearRegressor_
   /* "OptLinearRegress/models/linear_model.pyx":13
  *         self.n_features = 0
  *         self.beta = <double*>NULL
- *         self.alpha = alpha             # <<<<<<<<<<<<<<
+ *         self.alpha = alpha    # A small value for convergence             # <<<<<<<<<<<<<<
  * 
  *     def __dealloc__(self):
 */
@@ -2712,7 +2712,7 @@ static int __pyx_pf_16OptLinearRegress_6models_12linear_model_15LinearRegressor_
 }
 
 /* "OptLinearRegress/models/linear_model.pyx":15
- *         self.alpha = alpha
+ *         self.alpha = alpha    # A small value for convergence
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         if self.beta != <double*>NULL:
@@ -2764,7 +2764,7 @@ static void __pyx_pf_16OptLinearRegress_6models_12linear_model_15LinearRegressor
   }
 
   /* "OptLinearRegress/models/linear_model.pyx":15
- *         self.alpha = alpha
+ *         self.alpha = alpha    # A small value for convergence
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         if self.beta != <double*>NULL:
